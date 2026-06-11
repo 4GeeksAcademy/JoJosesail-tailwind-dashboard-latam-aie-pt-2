@@ -78,7 +78,7 @@
 			<section aria-labelledby="kpis-titulo" class="space-y-4">
 				<div class="flex items-end justify-between gap-4">
 					<div>
-						<h2 id="kpis-titulo" class="text-lg font-semibold sm:text-xl">Bloque Superior: Volumen de Ventas</h2>
+						<h2 id="kpis-titulo" class="text-lg font-semibold sm:text-xl">KPIs Comerciales Clave</h2>
 						<p class="text-sm text-zinc-600 [.dark_&]:text-zinc-300">Indicadores de ingresos, satisfacción y coste por resultado.</p>
 					</div>
 					<span class="rounded-full border border-emerald-500/40 bg-emerald-100/70 px-3 py-1 text-xs font-medium text-emerald-700 [.dark_&]:border-emerald-300/35 [.dark_&]:bg-emerald-300/10 [.dark_&]:text-emerald-100 [.preset-neon_&]:border-green-500/45 [.preset-neon_&]:bg-green-100/75 [.preset-neon_&]:text-green-700 [.preset-neon.dark_&]:border-green-300/40 [.preset-neon.dark_&]:bg-green-300/10 [.preset-neon.dark_&]:text-green-100">
@@ -92,7 +92,7 @@
 
 			<section aria-labelledby="drivers-titulo" class="space-y-4">
 				<div>
-					<h2 id="drivers-titulo" class="text-lg font-semibold sm:text-xl">Bloque Intermedio: Drivers</h2>
+					<h2 id="drivers-titulo" class="text-lg font-semibold sm:text-xl">Drivers de Rendimiento</h2>
 					<p class="text-sm text-zinc-600 [.dark_&]:text-zinc-300">Desempeño por plataforma, calidad y rendimiento por producto.</p>
 				</div>
 
@@ -108,7 +108,7 @@
 					</article>
 
 					<article class="rounded-2xl border border-zinc-300 bg-white/75 p-5 shadow-sm [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
-						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Rendimiento por producto</h3>
+						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Top 5 productos de mayor rendimiento</h3>
 						<ul id="product-performance" class="mt-4 space-y-3 text-sm"></ul>
 					</article>
 				</div>
@@ -116,27 +116,29 @@
 
 			<section aria-labelledby="operacional-titulo" class="space-y-4 pb-8">
 				<div>
-					<h2 id="operacional-titulo" class="text-lg font-semibold sm:text-xl">Bloque Inferior: Detalles Operacionales</h2>
+					<h2 id="operacional-titulo" class="text-lg font-semibold sm:text-xl">Detalle Operacional de Productos</h2>
 					<p class="text-sm text-zinc-600 [.dark_&]:text-zinc-300">Tabla de productos con listado y filtros operativos.</p>
 				</div>
 
 				<article class="rounded-2xl border border-zinc-300 bg-white/75 p-4 shadow-sm sm:p-5 [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
 					<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Tabla de productos</h3>
-						<form class="grid grid-cols-1 gap-2 sm:grid-cols-3" aria-label="Filtros de productos">
+						<form class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Filtros de productos">
 							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
 								Categoría
-								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
+								<select id="filter-category" class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
 									<option>Todas</option>
 									<option>Hoodies</option>
 									<option>Camisetas</option>
 									<option>Chaquetas</option>
+									<option>Pantalones</option>
+									<option>Accesorios</option>
 								</select>
 							</label>
 
 							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
 								Plataforma
-								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
+								<select id="filter-platform" class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
 									<option>Todas</option>
 									<option>Instagram</option>
 									<option>TikTok</option>
@@ -146,11 +148,21 @@
 
 							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
 								Estado de stock
-								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
+								<select id="filter-stock" class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
 									<option>Todos</option>
 									<option>Alto</option>
 									<option>Medio</option>
 									<option>Bajo</option>
+								</select>
+							</label>
+
+							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
+								Rango de ventas
+								<select id="filter-sales" class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
+									<option value="all">Todas</option>
+									<option value="high">900 o más</option>
+									<option value="mid">600 a 899</option>
+									<option value="low">Menos de 600</option>
 								</select>
 							</label>
 						</form>
@@ -167,8 +179,10 @@
 									<th scope="col" class="px-3 py-3">Categoría</th>
 									<th scope="col" class="px-3 py-3">Plataforma Top</th>
 									<th scope="col" class="px-3 py-3">Ventas</th>
+									<th scope="col" class="px-3 py-3">Stock (u)</th>
 									<th scope="col" class="px-3 py-3">Stock</th>
 									<th scope="col" class="px-3 py-3">Calidad</th>
+									<th scope="col" class="px-3 py-3">Reviews 5★</th>
 								</tr>
 							</thead>
 							<tbody id="products-table-body" class="divide-y divide-zinc-200 bg-white/70 text-zinc-800 [.dark_&]:divide-zinc-800 [.dark_&]:bg-zinc-900/40 [.dark_&]:text-zinc-200"></tbody>
@@ -187,13 +201,23 @@
 			const qualityMetrics = document.getElementById("quality-metrics");
 			const productPerformance = document.getElementById("product-performance");
 			const productsTableBody = document.getElementById("products-table-body");
+			const filterCategory = document.getElementById("filter-category");
+			const filterPlatform = document.getElementById("filter-platform");
+			const filterStock = document.getElementById("filter-stock");
+			const filterSales = document.getElementById("filter-sales");
 			const html = document.documentElement;
 			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			const stockToneMap = {
+				Alto: "text-emerald-700 [.dark_&]:text-emerald-300",
+				Medio: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
+				Bajo: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
+			};
 
 			const dashboardData = {
 				kpis: [
 					{
-						title: "Ingresos",
+						title: "Ingresos Totales",
 						target: 48920,
 						format: "currency-0",
 						subtitle: "Meta mensual: 92% completada",
@@ -221,36 +245,64 @@
 					},
 				],
 				platforms: [
-					{
-						name: "Instagram",
-						value: 71,
+						{
+							name: "Instagram",
+							value: 73,
 						textClass: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
 						barClass: "from-violet-400 to-purple-300 [.preset-neon_&]:from-fuchsia-400 [.preset-neon_&]:to-purple-400",
 					},
 					{
 						name: "TikTok",
-						value: 64,
+							value: 68,
 						textClass: "text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300",
 						barClass: "from-emerald-300 to-emerald-400 [.preset-neon_&]:from-green-300 [.preset-neon_&]:to-green-500",
 					},
 				],
 				quality: [
-					{ label: "Tasa de devolución", value: "2.4%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
-					{ label: "Control de tallas", value: "97.8%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
-					{ label: "Reseñas 5★", value: "89%", tone: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300" },
-					{ label: "Pedidos sin incidencia", value: "96.2%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
-				],
-				productPerformance: [
-					{ name: "Hoodie Oni Street", delta: "+22%", tone: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300" },
-					{ name: "Camiseta Yokai Core", delta: "+16%", tone: "text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300" },
-					{ name: "Chaqueta Neo Shibuya", delta: "+9%", tone: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300" },
+						{ label: "Tasa de devolución", value: "2.1%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
+						{ label: "Control de tallas", value: "98.2%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
+						{ label: "Reseñas 5★", value: "91%", tone: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300" },
+						{ label: "Pedidos sin incidencia", value: "97.1%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
 				],
 				products: [
-					{ name: "Hoodie Oni Street", category: "Hoodie", platform: "Instagram", sales: "1,240", stock: "Alto", stockTone: "text-emerald-700 [.dark_&]:text-emerald-300", quality: "95%" },
-					{ name: "Camiseta Yokai Core", category: "Camiseta", platform: "TikTok", sales: "980", stock: "Medio", stockTone: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300", quality: "92%" },
-					{ name: "Chaqueta Neo Shibuya", category: "Chaqueta", platform: "Web", sales: "640", stock: "Bajo", stockTone: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300", quality: "90%" },
+						{ name: "Hoodie Oni Street", category: "Hoodies", platform: "Instagram", sales: 1240, stockUnits: 220, stock: "Alto", quality: "95%", performance: 22, reviews5: 460 },
+						{ name: "Camiseta Yokai Core", category: "Camisetas", platform: "TikTok", sales: 980, stockUnits: 140, stock: "Medio", quality: "92%", performance: 16, reviews5: 390 },
+						{ name: "Chaqueta Neo Shibuya", category: "Chaquetas", platform: "Web", sales: 640, stockUnits: 58, stock: "Bajo", quality: "90%", performance: 9, reviews5: 240 },
+						{ name: "Pantalon Kuro Drift", category: "Pantalones", platform: "Instagram", sales: 910, stockUnits: 125, stock: "Medio", quality: "93%", performance: 14, reviews5: 320 },
+						{ name: "Gorra Kitsune Tag", category: "Accesorios", platform: "TikTok", sales: 870, stockUnits: 260, stock: "Alto", quality: "96%", performance: 18, reviews5: 510 },
+						{ name: "Hoodie Shibuya Night", category: "Hoodies", platform: "Instagram", sales: 1160, stockUnits: 198, stock: "Alto", quality: "94%", performance: 20, reviews5: 440 },
+						{ name: "Camiseta Ronin Pixel", category: "Camisetas", platform: "TikTok", sales: 760, stockUnits: 112, stock: "Medio", quality: "91%", performance: 12, reviews5: 280 },
+						{ name: "Chaqueta Satori Tech", category: "Chaquetas", platform: "Web", sales: 590, stockUnits: 49, stock: "Bajo", quality: "89%", performance: 8, reviews5: 210 },
+						{ name: "Pantalon Asfalto Neo", category: "Pantalones", platform: "Web", sales: 540, stockUnits: 96, stock: "Medio", quality: "90%", performance: 7, reviews5: 185 },
+						{ name: "Mochila Oni Patch", category: "Accesorios", platform: "Instagram", sales: 690, stockUnits: 175, stock: "Alto", quality: "95%", performance: 11, reviews5: 305 },
+						{ name: "Hoodie Glitch Yokai", category: "Hoodies", platform: "TikTok", sales: 1080, stockUnits: 188, stock: "Alto", quality: "94%", performance: 19, reviews5: 420 },
+						{ name: "Camiseta Tokyo Alley", category: "Camisetas", platform: "Instagram", sales: 840, stockUnits: 133, stock: "Medio", quality: "92%", performance: 13, reviews5: 340 },
+						{ name: "Chaqueta Neon Kumo", category: "Chaquetas", platform: "TikTok", sales: 730, stockUnits: 77, stock: "Medio", quality: "91%", performance: 10, reviews5: 260 },
+						{ name: "Pantalon Harajuku Flex", category: "Pantalones", platform: "Instagram", sales: 660, stockUnits: 84, stock: "Medio", quality: "90%", performance: 9, reviews5: 232 },
+						{ name: "Cadena Spirit Mode", category: "Accesorios", platform: "Web", sales: 470, stockUnits: 65, stock: "Bajo", quality: "88%", performance: 6, reviews5: 168 },
+						{ name: "Hoodie Kawaii Dark", category: "Hoodies", platform: "Web", sales: 820, stockUnits: 144, stock: "Medio", quality: "93%", performance: 12, reviews5: 300 },
+						{ name: "Camiseta Metro Fox", category: "Camisetas", platform: "TikTok", sales: 715, stockUnits: 101, stock: "Medio", quality: "91%", performance: 10, reviews5: 250 },
+						{ name: "Chaqueta Phantom Neko", category: "Chaquetas", platform: "Instagram", sales: 780, stockUnits: 92, stock: "Medio", quality: "92%", performance: 11, reviews5: 274 },
+						{ name: "Pantalon Zero Gravity", category: "Pantalones", platform: "TikTok", sales: 605, stockUnits: 72, stock: "Bajo", quality: "89%", performance: 8, reviews5: 201 },
+						{ name: "Riñonera Catbyte", category: "Accesorios", platform: "Instagram", sales: 955, stockUnits: 210, stock: "Alto", quality: "96%", performance: 17, reviews5: 470 },
 				],
 			};
+
+			let filteredProducts = [...dashboardData.products];
+
+			function getReviewStars(reviews5) {
+				if (reviews5 >= 420) return 5;
+				if (reviews5 >= 300) return 4;
+				if (reviews5 >= 220) return 3;
+				if (reviews5 >= 170) return 2;
+				return 1;
+			}
+
+			function renderStars(reviews5) {
+				const stars = getReviewStars(reviews5);
+				const icon = '<span class="text-amber-500 [.dark_&]:text-amber-300 [.preset-neon_&]:text-fuchsia-500 [.preset-neon.dark_&]:text-fuchsia-300">★</span>';
+				return `<span data-star-group data-stars="${stars}" class="inline-flex gap-0.5 opacity-70">${icon.repeat(stars)}</span>`;
+			}
 
 			function renderDashboardComponents() {
 				if (kpiGrid) {
@@ -281,22 +333,50 @@
 				}
 
 				if (productPerformance) {
-					productPerformance.innerHTML = dashboardData.productPerformance
+					const top5 = [...dashboardData.products]
+						.sort((a, b) => b.performance - a.performance || b.sales - a.sales)
+						.slice(0, 5);
+
+					productPerformance.innerHTML = top5
 						.map(
 							(item) =>
-								`<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80"><span>${item.name}</span><span class="font-semibold ${item.tone}">${item.delta}</span></li>`,
+								`<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80"><span>${item.name}</span><span class="font-semibold text-right text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">+${item.performance}% · ${item.sales.toLocaleString("en-US")}</span></li>`,
 						)
 						.join("");
 				}
 
 				if (productsTableBody) {
-					productsTableBody.innerHTML = dashboardData.products
+					productsTableBody.innerHTML = filteredProducts
 						.map(
 							(item) =>
-								`<tr><th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">${item.name}</th><td class="px-3 py-3">${item.category}</td><td class="px-3 py-3">${item.platform}</td><td class="px-3 py-3">${item.sales}</td><td class="px-3 py-3 ${item.stockTone}">${item.stock}</td><td class="px-3 py-3">${item.quality}</td></tr>`,
+								`<tr><th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">${item.name}</th><td class="px-3 py-3">${item.category}</td><td class="px-3 py-3">${item.platform}</td><td class="px-3 py-3">${item.sales.toLocaleString("en-US")}</td><td class="px-3 py-3">${item.stockUnits}</td><td class="px-3 py-3 ${stockToneMap[item.stock] || ""}">${item.stock}</td><td class="px-3 py-3">${item.quality}</td><td class="px-3 py-3"><div class="flex items-center gap-2">${renderStars(item.reviews5)}<span class="text-xs text-zinc-500 [.dark_&]:text-zinc-400">${item.reviews5}</span></div></td></tr>`,
 						)
 						.join("");
 				}
+			}
+
+			function applyProductFilters() {
+				const categoryValue = filterCategory?.value || "Todas";
+				const platformValue = filterPlatform?.value || "Todas";
+				const stockValue = filterStock?.value || "Todos";
+				const salesValue = filterSales?.value || "all";
+
+				filteredProducts = dashboardData.products.filter((item) => {
+					const categoryMatch = categoryValue === "Todas" || item.category === categoryValue;
+					const platformMatch = platformValue === "Todas" || item.platform === platformValue;
+					const stockMatch = stockValue === "Todos" || item.stock === stockValue;
+
+					let salesMatch = true;
+					if (salesValue === "high") salesMatch = item.sales >= 900;
+					if (salesValue === "mid") salesMatch = item.sales >= 600 && item.sales < 900;
+					if (salesValue === "low") salesMatch = item.sales < 600;
+
+					return categoryMatch && platformMatch && stockMatch && salesMatch;
+				});
+
+				renderDashboardComponents();
+				runDataAnimations();
+				animateReviewStars();
 			}
 
 			function easeOutCubic(t) {
@@ -365,6 +445,28 @@
 				});
 			}
 
+			function animateReviewStars() {
+				document.querySelectorAll("[data-star-group]").forEach((group) => {
+					const stars = Number(group.dataset.stars || "0");
+					const starElements = [...group.querySelectorAll("span")];
+					if (reduceMotion) {
+						group.style.opacity = "1";
+						return;
+					}
+
+					group.style.opacity = "1";
+					starElements.forEach((star, index) => {
+						star.style.opacity = "0";
+						star.style.transform = "scale(0.65)";
+						setTimeout(() => {
+							star.style.transition = "transform 320ms ease, opacity 320ms ease";
+							star.style.opacity = index < stars ? "1" : "0.2";
+							star.style.transform = index < stars ? "scale(1)" : "scale(0.85)";
+						}, 100 + index * 120);
+					});
+				});
+			}
+
 			function runDataAnimations() {
 				document.querySelectorAll("[data-counter]").forEach((element) => {
 					const target = Number(element.dataset.target || "0");
@@ -379,6 +481,7 @@
 				});
 
 				animateKpiCards();
+				animateReviewStars();
 			}
 
 			function syncThemeUI() {
@@ -406,6 +509,10 @@
 				localStorage.setItem("yokai-preset", neonEnabled ? "neon" : "urban-purple");
 				syncPresetUI();
 				runDataAnimations();
+			});
+
+			[filterCategory, filterPlatform, filterStock, filterSales].forEach((control) => {
+				control?.addEventListener("change", applyProductFilters);
 			});
 
 			syncThemeUI();
