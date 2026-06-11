@@ -87,25 +87,7 @@
 					</span>
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					<article data-kpi-card data-intensity="48920" class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-violet-50/80 p-5 shadow-[0_16px_40px_-22px_rgba(147,51,234,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(192,132,252,0.9)] [.preset-neon_&]:to-fuchsia-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(217,70,239,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(232,121,249,0.9)]">
-						<p class="text-xs uppercase tracking-widest text-zinc-500 [.dark_&]:text-zinc-400">Ingresos</p>
-						<p data-counter data-format="currency-0" data-target="48920" class="mt-3 text-3xl font-bold text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">$48,920</p>
-						<p class="mt-2 text-sm text-emerald-700 [.dark_&]:text-emerald-200">Meta mensual: 92% completada</p>
-					</article>
-
-					<article data-kpi-card data-intensity="94.1" class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-emerald-50/80 p-5 shadow-[0_16px_40px_-22px_rgba(22,163,74,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(74,222,128,0.9)] [.preset-neon_&]:to-green-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(34,197,94,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(74,222,128,0.9)]">
-						<p class="text-xs uppercase tracking-widest text-zinc-500 [.dark_&]:text-zinc-400">Satisfacción</p>
-						<p data-counter data-format="percent-1" data-target="94.1" class="mt-3 text-3xl font-bold text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300">94.1%</p>
-						<p class="mt-2 text-sm text-zinc-700 [.dark_&]:text-zinc-200">NPS alto en colecciones limitadas</p>
-					</article>
-
-					<article data-kpi-card data-intensity="3.87" class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-purple-50/90 p-5 shadow-[0_16px_40px_-22px_rgba(147,51,234,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(216,180,254,0.9)] [.preset-neon_&]:to-fuchsia-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(217,70,239,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(232,121,249,0.9)]">
-						<p class="text-xs uppercase tracking-widest text-zinc-500 [.dark_&]:text-zinc-400">Coste por resultado</p>
-						<p data-counter data-format="currency-2" data-target="3.87" class="mt-3 text-3xl font-bold text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">$3.87</p>
-						<p class="mt-2 text-sm text-emerald-700 [.dark_&]:text-emerald-200">-8.3% en eficiencia publicitaria</p>
-					</article>
-				</div>
+				<div id="kpi-grid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
 			</section>
 
 			<section aria-labelledby="drivers-titulo" class="space-y-4">
@@ -117,66 +99,17 @@
 				<div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
 					<article class="rounded-2xl border border-zinc-300 bg-white/75 p-5 shadow-sm [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
 						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Rendimiento por plataforma</h3>
-						<div class="mt-4 space-y-4">
-							<div>
-								<div class="mb-1 flex justify-between text-sm">
-									<span>Instagram</span>
-									<span data-counter data-format="percent-0" data-target="71" class="text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">71%</span>
-								</div>
-								<div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800">
-									<div data-progress="71" class="h-2 w-0 rounded-full bg-gradient-to-r from-violet-400 to-purple-300 transition-all [.preset-neon_&]:from-fuchsia-400 [.preset-neon_&]:to-purple-400"></div>
-								</div>
-							</div>
-							<div>
-								<div class="mb-1 flex justify-between text-sm">
-									<span>TikTok</span>
-									<span data-counter data-format="percent-0" data-target="64" class="text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300">64%</span>
-								</div>
-								<div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800">
-									<div data-progress="64" class="h-2 w-0 rounded-full bg-gradient-to-r from-emerald-300 to-emerald-400 transition-all [.preset-neon_&]:from-green-300 [.preset-neon_&]:to-green-500"></div>
-								</div>
-							</div>
-						</div>
+						<div id="platform-performance" class="mt-4 space-y-4"></div>
 					</article>
 
 					<article class="rounded-2xl border border-zinc-300 bg-white/75 p-5 shadow-sm [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
 						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Calidad</h3>
-						<dl class="mt-4 grid grid-cols-2 gap-3 text-sm">
-							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
-								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Tasa de devolución</dt>
-								<dd class="mt-1 text-lg font-semibold text-emerald-600 [.dark_&]:text-emerald-300">2.4%</dd>
-							</div>
-							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
-								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Control de tallas</dt>
-								<dd class="mt-1 text-lg font-semibold text-emerald-600 [.dark_&]:text-emerald-300">97.8%</dd>
-							</div>
-							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
-								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Reseñas 5★</dt>
-								<dd class="mt-1 text-lg font-semibold text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">89%</dd>
-							</div>
-							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
-								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Pedidos sin incidencia</dt>
-								<dd class="mt-1 text-lg font-semibold text-emerald-600 [.dark_&]:text-emerald-300">96.2%</dd>
-							</div>
-						</dl>
+						<dl id="quality-metrics" class="mt-4 grid grid-cols-2 gap-3 text-sm"></dl>
 					</article>
 
 					<article class="rounded-2xl border border-zinc-300 bg-white/75 p-5 shadow-sm [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
 						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Rendimiento por producto</h3>
-						<ul class="mt-4 space-y-3 text-sm">
-							<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
-								<span>Hoodie Oni Street</span>
-								<span class="font-semibold text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">+22%</span>
-							</li>
-							<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
-								<span>Camiseta Yokai Core</span>
-								<span class="font-semibold text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300">+16%</span>
-							</li>
-							<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
-								<span>Chaqueta Neo Shibuya</span>
-								<span class="font-semibold text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">+9%</span>
-							</li>
-						</ul>
+						<ul id="product-performance" class="mt-4 space-y-3 text-sm"></ul>
 					</article>
 				</div>
 			</section>
@@ -238,32 +171,7 @@
 									<th scope="col" class="px-3 py-3">Calidad</th>
 								</tr>
 							</thead>
-							<tbody class="divide-y divide-zinc-200 bg-white/70 text-zinc-800 [.dark_&]:divide-zinc-800 [.dark_&]:bg-zinc-900/40 [.dark_&]:text-zinc-200">
-								<tr>
-									<th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">Hoodie Oni Street</th>
-									<td class="px-3 py-3">Hoodie</td>
-									<td class="px-3 py-3">Instagram</td>
-									<td class="px-3 py-3">1,240</td>
-									<td class="px-3 py-3 text-emerald-700 [.dark_&]:text-emerald-300">Alto</td>
-									<td class="px-3 py-3">95%</td>
-								</tr>
-								<tr>
-									<th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">Camiseta Yokai Core</th>
-									<td class="px-3 py-3">Camiseta</td>
-									<td class="px-3 py-3">TikTok</td>
-									<td class="px-3 py-3">980</td>
-									<td class="px-3 py-3 text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">Medio</td>
-									<td class="px-3 py-3">92%</td>
-								</tr>
-								<tr>
-									<th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">Chaqueta Neo Shibuya</th>
-									<td class="px-3 py-3">Chaqueta</td>
-									<td class="px-3 py-3">Web</td>
-									<td class="px-3 py-3">640</td>
-									<td class="px-3 py-3 text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">Bajo</td>
-									<td class="px-3 py-3">90%</td>
-								</tr>
-							</tbody>
+							<tbody id="products-table-body" class="divide-y divide-zinc-200 bg-white/70 text-zinc-800 [.dark_&]:divide-zinc-800 [.dark_&]:bg-zinc-900/40 [.dark_&]:text-zinc-200"></tbody>
 						</table>
 					</div>
 				</article>
@@ -274,8 +182,122 @@
 			const themeToggle = document.getElementById("theme-toggle");
 			const themeLabel = document.getElementById("theme-label");
 			const presetSelect = document.getElementById("preset-select");
+			const kpiGrid = document.getElementById("kpi-grid");
+			const platformPerformance = document.getElementById("platform-performance");
+			const qualityMetrics = document.getElementById("quality-metrics");
+			const productPerformance = document.getElementById("product-performance");
+			const productsTableBody = document.getElementById("products-table-body");
 			const html = document.documentElement;
 			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			const dashboardData = {
+				kpis: [
+					{
+						title: "Ingresos",
+						target: 48920,
+						format: "currency-0",
+						subtitle: "Meta mensual: 92% completada",
+						valueClass: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
+						cardClass:
+							"to-violet-50/80 shadow-[0_16px_40px_-22px_rgba(147,51,234,0.45)] [.dark_&]:shadow-[0_16px_40px_-20px_rgba(192,132,252,0.9)] [.preset-neon_&]:to-fuchsia-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(217,70,239,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(232,121,249,0.9)]",
+					},
+					{
+						title: "Satisfacción",
+						target: 94.1,
+						format: "percent-1",
+						subtitle: "NPS alto en colecciones limitadas",
+						valueClass: "text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300",
+						cardClass:
+							"to-emerald-50/80 shadow-[0_16px_40px_-22px_rgba(22,163,74,0.45)] [.dark_&]:shadow-[0_16px_40px_-20px_rgba(74,222,128,0.9)] [.preset-neon_&]:to-green-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(34,197,94,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(74,222,128,0.9)]",
+					},
+					{
+						title: "Coste por resultado",
+						target: 3.87,
+						format: "currency-2",
+						subtitle: "-8.3% en eficiencia publicitaria",
+						valueClass: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
+						cardClass:
+							"to-purple-50/90 shadow-[0_16px_40px_-22px_rgba(147,51,234,0.45)] [.dark_&]:shadow-[0_16px_40px_-20px_rgba(216,180,254,0.9)] [.preset-neon_&]:to-fuchsia-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(217,70,239,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(232,121,249,0.9)]",
+					},
+				],
+				platforms: [
+					{
+						name: "Instagram",
+						value: 71,
+						textClass: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
+						barClass: "from-violet-400 to-purple-300 [.preset-neon_&]:from-fuchsia-400 [.preset-neon_&]:to-purple-400",
+					},
+					{
+						name: "TikTok",
+						value: 64,
+						textClass: "text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300",
+						barClass: "from-emerald-300 to-emerald-400 [.preset-neon_&]:from-green-300 [.preset-neon_&]:to-green-500",
+					},
+				],
+				quality: [
+					{ label: "Tasa de devolución", value: "2.4%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
+					{ label: "Control de tallas", value: "97.8%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
+					{ label: "Reseñas 5★", value: "89%", tone: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300" },
+					{ label: "Pedidos sin incidencia", value: "96.2%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
+				],
+				productPerformance: [
+					{ name: "Hoodie Oni Street", delta: "+22%", tone: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300" },
+					{ name: "Camiseta Yokai Core", delta: "+16%", tone: "text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300" },
+					{ name: "Chaqueta Neo Shibuya", delta: "+9%", tone: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300" },
+				],
+				products: [
+					{ name: "Hoodie Oni Street", category: "Hoodie", platform: "Instagram", sales: "1,240", stock: "Alto", stockTone: "text-emerald-700 [.dark_&]:text-emerald-300", quality: "95%" },
+					{ name: "Camiseta Yokai Core", category: "Camiseta", platform: "TikTok", sales: "980", stock: "Medio", stockTone: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300", quality: "92%" },
+					{ name: "Chaqueta Neo Shibuya", category: "Chaqueta", platform: "Web", sales: "640", stock: "Bajo", stockTone: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300", quality: "90%" },
+				],
+			};
+
+			function renderDashboardComponents() {
+				if (kpiGrid) {
+					kpiGrid.innerHTML = dashboardData.kpis
+						.map(
+							(item) =>
+								`<article data-kpi-card data-intensity="${item.target}" class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 ${item.cardClass} p-5 [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90"><p class="text-xs uppercase tracking-widest text-zinc-500 [.dark_&]:text-zinc-400">${item.title}</p><p data-counter data-format="${item.format}" data-target="${item.target}" class="mt-3 text-3xl font-bold ${item.valueClass}">${formatMetric(item.target, item.format)}</p><p class="mt-2 text-sm text-emerald-700 [.dark_&]:text-emerald-200">${item.subtitle}</p></article>`,
+						)
+						.join("");
+				}
+
+				if (platformPerformance) {
+					platformPerformance.innerHTML = dashboardData.platforms
+						.map(
+							(item) =>
+								`<div><div class="mb-1 flex justify-between text-sm"><span>${item.name}</span><span data-counter data-format="percent-0" data-target="${item.value}" class="${item.textClass}">${item.value}%</span></div><div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800"><div data-progress="${item.value}" class="h-2 w-0 rounded-full bg-gradient-to-r ${item.barClass} transition-all"></div></div></div>`,
+						)
+						.join("");
+				}
+
+				if (qualityMetrics) {
+					qualityMetrics.innerHTML = dashboardData.quality
+						.map(
+							(item) =>
+								`<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80"><dt class="text-zinc-500 [.dark_&]:text-zinc-400">${item.label}</dt><dd class="mt-1 text-lg font-semibold ${item.tone}">${item.value}</dd></div>`,
+						)
+						.join("");
+				}
+
+				if (productPerformance) {
+					productPerformance.innerHTML = dashboardData.productPerformance
+						.map(
+							(item) =>
+								`<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80"><span>${item.name}</span><span class="font-semibold ${item.tone}">${item.delta}</span></li>`,
+						)
+						.join("");
+				}
+
+				if (productsTableBody) {
+					productsTableBody.innerHTML = dashboardData.products
+						.map(
+							(item) =>
+								`<tr><th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">${item.name}</th><td class="px-3 py-3">${item.category}</td><td class="px-3 py-3">${item.platform}</td><td class="px-3 py-3">${item.sales}</td><td class="px-3 py-3 ${item.stockTone}">${item.stock}</td><td class="px-3 py-3">${item.quality}</td></tr>`,
+						)
+						.join("");
+				}
+			}
 
 			function easeOutCubic(t) {
 				return 1 - Math.pow(1 - t, 3);
@@ -388,6 +410,7 @@
 
 			syncThemeUI();
 			syncPresetUI();
+			renderDashboardComponents();
 			runDataAnimations();
 		</script>
 	</body>
