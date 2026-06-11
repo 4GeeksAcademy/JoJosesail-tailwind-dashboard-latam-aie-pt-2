@@ -11,9 +11,13 @@
 		<script>
 			(function () {
 				const savedTheme = localStorage.getItem("yokai-theme");
+				const savedPreset = localStorage.getItem("yokai-preset");
 				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 				if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
 					document.documentElement.classList.add("dark");
+				}
+				if (savedPreset === "neon") {
+					document.documentElement.classList.add("preset-neon");
 				}
 			})();
 		</script>
@@ -21,14 +25,14 @@
 	</head>
 	<body class="min-h-screen bg-zinc-100 text-zinc-900 antialiased transition-colors duration-300 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100">
 		<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-			<div class="absolute -left-24 top-0 h-72 w-72 rounded-full bg-rose-400/25 blur-3xl [.dark_&]:bg-rose-500/25"></div>
-			<div class="absolute right-0 top-24 h-80 w-80 rounded-full bg-amber-300/25 blur-3xl [.dark_&]:bg-amber-400/20"></div>
-			<div class="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-cyan-300/25 blur-3xl [.dark_&]:bg-cyan-400/20"></div>
+			<div class="absolute -left-24 top-0 h-72 w-72 rounded-full bg-violet-400/25 blur-3xl [.dark_&]:bg-violet-500/25 [.preset-neon_&]:bg-fuchsia-500/30"></div>
+			<div class="absolute right-0 top-24 h-80 w-80 rounded-full bg-purple-300/25 blur-3xl [.dark_&]:bg-purple-400/20 [.preset-neon_&]:bg-violet-500/25"></div>
+			<div class="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-emerald-300/25 blur-3xl [.dark_&]:bg-emerald-400/20 [.preset-neon_&]:bg-green-400/25"></div>
 			<div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(24,24,27,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(24,24,27,0.06)_1px,transparent_1px)] bg-[size:24px_24px] [.dark_&]:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
 		</div>
 		<a
 			href="#contenido"
-			class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-amber-300 focus:px-3 focus:py-2 focus:text-zinc-900"
+			class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-purple-300 focus:px-3 focus:py-2 focus:text-zinc-900 [.preset-neon_&]:focus:bg-fuchsia-300"
 		>
 			Saltar al contenido
 		</a>
@@ -36,24 +40,32 @@
 		<header class="border-b border-zinc-300/80 bg-zinc-50/80 backdrop-blur-xl [.dark_&]:border-zinc-700/60 [.dark_&]:bg-zinc-950/70">
 			<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 				<div>
-					<p class="text-xs font-semibold uppercase tracking-[0.30em] text-amber-600 [.dark_&]:text-amber-300">yokaishxp</p>
+					<p class="text-xs font-semibold uppercase tracking-[0.30em] text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-500 [.preset-neon.dark_&]:text-fuchsia-300">yokaishxp</p>
 					<h1 class="mt-1 text-xl font-bold sm:text-2xl">Dashboard Comercial y Operacional</h1>
 					<p class="mt-1 text-sm text-zinc-600 [.dark_&]:text-zinc-300">Caracas, Venezuela · Moda anime japonesa urbana</p>
 				</div>
 				<div class="flex items-center gap-2">
-					<div class="hidden rounded-md border border-amber-500/40 bg-amber-100/70 px-3 py-2 text-xs font-medium text-amber-700 sm:block [.dark_&]:border-amber-300/35 [.dark_&]:bg-amber-300/10 [.dark_&]:text-amber-100">
+					<label class="hidden text-xs font-semibold uppercase tracking-wide text-zinc-600 md:block [.dark_&]:text-zinc-300" for="preset-select">Preset</label>
+					<select
+						id="preset-select"
+						class="rounded-md border border-zinc-300 bg-white/90 px-2 py-2 text-xs font-semibold text-zinc-700 shadow-sm focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-900/90 [.dark_&]:text-zinc-200 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500"
+					>
+						<option value="urban-purple">Urbano Purple</option>
+						<option value="neon">Urban Neon</option>
+					</select>
+					<div class="hidden rounded-md border border-purple-500/40 bg-purple-100/70 px-3 py-2 text-xs font-medium text-purple-700 sm:block [.dark_&]:border-purple-300/35 [.dark_&]:bg-purple-300/10 [.dark_&]:text-purple-100 [.preset-neon_&]:border-fuchsia-500/40 [.preset-neon_&]:bg-fuchsia-100/70 [.preset-neon_&]:text-fuchsia-700 [.preset-neon.dark_&]:border-fuchsia-300/35 [.preset-neon.dark_&]:bg-fuchsia-300/10 [.preset-neon.dark_&]:text-fuchsia-100">
 						Corte: Junio 2026
 					</div>
 					<button
 						id="theme-toggle"
 						type="button"
 						aria-label="Activar modo noche"
-						class="inline-flex items-center gap-2 rounded-md border border-zinc-300 bg-white/80 px-3 py-2 text-xs font-semibold text-zinc-700 shadow-sm transition hover:bg-zinc-100 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-900/90 [.dark_&]:text-zinc-200 [.dark_&]:hover:bg-zinc-800"
+						class="inline-flex items-center gap-2 rounded-md border border-zinc-300 bg-white/80 px-3 py-2 text-xs font-semibold text-zinc-700 shadow-sm transition hover:bg-zinc-100 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-900/90 [.dark_&]:text-zinc-200 [.dark_&]:hover:bg-zinc-800 [.preset-neon_&]:border-fuchsia-400/50 [.preset-neon_&]:text-fuchsia-700 [.preset-neon.dark_&]:text-fuchsia-200"
 					>
-						<svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 text-amber-500 [.dark_&]:hidden">
+						<svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 text-purple-500 [.dark_&]:hidden [.preset-neon_&]:text-fuchsia-500">
 							<path d="M12 2a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm10-7a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM5 12a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm13.364-6.364a1 1 0 0 1 0 1.414l-.707.708a1 1 0 0 1-1.414-1.415l.707-.707a1 1 0 0 1 1.414 0ZM7.757 16.95a1 1 0 0 1 0 1.414l-.707.707a1 1 0 1 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0Zm10.607 1.414a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 0 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414ZM7.757 7.05a1 1 0 0 1-1.414 0l-.707-.708A1 1 0 0 1 7.05 4.93l.707.707a1 1 0 0 1 0 1.414ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
 						</svg>
-						<svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hidden h-4 w-4 text-cyan-300 [.dark_&]:block">
+						<svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hidden h-4 w-4 text-emerald-300 [.dark_&]:block [.preset-neon_&]:text-green-300">
 							<path d="M10 2a1 1 0 0 1 .825 1.564 8 8 0 0 0 9.61 11.903 1 1 0 0 1 1.173 1.433A10 10 0 1 1 8.16 2.392 1 1 0 0 1 10 2Z"/>
 						</svg>
 						<span id="theme-label">Modo noche</span>
@@ -69,28 +81,29 @@
 						<h2 id="kpis-titulo" class="text-lg font-semibold sm:text-xl">Bloque Superior: Volumen de Ventas</h2>
 						<p class="text-sm text-zinc-600 [.dark_&]:text-zinc-300">Indicadores de ingresos, satisfacción y coste por resultado.</p>
 					</div>
-					<span class="rounded-full border border-lime-500/40 bg-lime-100/70 px-3 py-1 text-xs font-medium text-lime-700 [.dark_&]:border-lime-300/35 [.dark_&]:bg-lime-300/10 [.dark_&]:text-lime-100">
-						+12.4% vs mes anterior
+					<span class="rounded-full border border-emerald-500/40 bg-emerald-100/70 px-3 py-1 text-xs font-medium text-emerald-700 [.dark_&]:border-emerald-300/35 [.dark_&]:bg-emerald-300/10 [.dark_&]:text-emerald-100 [.preset-neon_&]:border-green-500/45 [.preset-neon_&]:bg-green-100/75 [.preset-neon_&]:text-green-700 [.preset-neon.dark_&]:border-green-300/40 [.preset-neon.dark_&]:bg-green-300/10 [.preset-neon.dark_&]:text-green-100">
+						<span data-counter data-format="signed-percent-1" data-target="12.4">+12.4%</span>
+						<span> vs mes anterior</span>
 					</span>
 				</div>
 
 				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					<article class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-rose-50/80 p-5 shadow-[0_16px_40px_-22px_rgba(225,29,72,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(251,113,133,0.9)]">
+					<article data-kpi-card data-intensity="48920" class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-violet-50/80 p-5 shadow-[0_16px_40px_-22px_rgba(147,51,234,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(192,132,252,0.9)] [.preset-neon_&]:to-fuchsia-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(217,70,239,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(232,121,249,0.9)]">
 						<p class="text-xs uppercase tracking-widest text-zinc-500 [.dark_&]:text-zinc-400">Ingresos</p>
-						<p class="mt-3 text-3xl font-bold text-rose-600 [.dark_&]:text-rose-300">$48,920</p>
-						<p class="mt-2 text-sm text-lime-700 [.dark_&]:text-lime-200">Meta mensual: 92% completada</p>
+						<p data-counter data-format="currency-0" data-target="48920" class="mt-3 text-3xl font-bold text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">$48,920</p>
+						<p class="mt-2 text-sm text-emerald-700 [.dark_&]:text-emerald-200">Meta mensual: 92% completada</p>
 					</article>
 
-					<article class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-cyan-50/80 p-5 shadow-[0_16px_40px_-22px_rgba(8,145,178,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(34,211,238,0.9)]">
+					<article data-kpi-card data-intensity="94.1" class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-emerald-50/80 p-5 shadow-[0_16px_40px_-22px_rgba(22,163,74,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(74,222,128,0.9)] [.preset-neon_&]:to-green-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(34,197,94,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(74,222,128,0.9)]">
 						<p class="text-xs uppercase tracking-widest text-zinc-500 [.dark_&]:text-zinc-400">Satisfacción</p>
-						<p class="mt-3 text-3xl font-bold text-cyan-600 [.dark_&]:text-cyan-300">94.1%</p>
+						<p data-counter data-format="percent-1" data-target="94.1" class="mt-3 text-3xl font-bold text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300">94.1%</p>
 						<p class="mt-2 text-sm text-zinc-700 [.dark_&]:text-zinc-200">NPS alto en colecciones limitadas</p>
 					</article>
 
-					<article class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-amber-50/90 p-5 shadow-[0_16px_40px_-22px_rgba(202,138,4,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(250,204,21,0.9)]">
+					<article data-kpi-card data-intensity="3.87" class="rounded-2xl border border-zinc-300 bg-gradient-to-br from-white via-zinc-50 to-purple-50/90 p-5 shadow-[0_16px_40px_-22px_rgba(147,51,234,0.45)] [.dark_&]:border-zinc-700/70 [.dark_&]:from-zinc-900/90 [.dark_&]:via-zinc-900/80 [.dark_&]:to-zinc-950/90 [.dark_&]:shadow-[0_16px_40px_-20px_rgba(216,180,254,0.9)] [.preset-neon_&]:to-fuchsia-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(217,70,239,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(232,121,249,0.9)]">
 						<p class="text-xs uppercase tracking-widest text-zinc-500 [.dark_&]:text-zinc-400">Coste por resultado</p>
-						<p class="mt-3 text-3xl font-bold text-amber-600 [.dark_&]:text-amber-300">$3.87</p>
-						<p class="mt-2 text-sm text-lime-700 [.dark_&]:text-lime-200">-8.3% en eficiencia publicitaria</p>
+						<p data-counter data-format="currency-2" data-target="3.87" class="mt-3 text-3xl font-bold text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">$3.87</p>
+						<p class="mt-2 text-sm text-emerald-700 [.dark_&]:text-emerald-200">-8.3% en eficiencia publicitaria</p>
 					</article>
 				</div>
 			</section>
@@ -108,19 +121,19 @@
 							<div>
 								<div class="mb-1 flex justify-between text-sm">
 									<span>Instagram</span>
-									<span class="text-amber-600 [.dark_&]:text-amber-300">71%</span>
+									<span data-counter data-format="percent-0" data-target="71" class="text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">71%</span>
 								</div>
 								<div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800">
-									<div class="h-2 w-[71%] rounded-full bg-gradient-to-r from-rose-400 to-amber-300"></div>
+									<div data-progress="71" class="h-2 w-0 rounded-full bg-gradient-to-r from-violet-400 to-purple-300 transition-all [.preset-neon_&]:from-fuchsia-400 [.preset-neon_&]:to-purple-400"></div>
 								</div>
 							</div>
 							<div>
 								<div class="mb-1 flex justify-between text-sm">
 									<span>TikTok</span>
-									<span class="text-cyan-600 [.dark_&]:text-cyan-300">64%</span>
+									<span data-counter data-format="percent-0" data-target="64" class="text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300">64%</span>
 								</div>
 								<div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800">
-									<div class="h-2 w-[64%] rounded-full bg-gradient-to-r from-cyan-300 to-blue-400"></div>
+									<div data-progress="64" class="h-2 w-0 rounded-full bg-gradient-to-r from-emerald-300 to-emerald-400 transition-all [.preset-neon_&]:from-green-300 [.preset-neon_&]:to-green-500"></div>
 								</div>
 							</div>
 						</div>
@@ -131,19 +144,19 @@
 						<dl class="mt-4 grid grid-cols-2 gap-3 text-sm">
 							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
 								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Tasa de devolución</dt>
-								<dd class="mt-1 text-lg font-semibold text-lime-600 [.dark_&]:text-lime-300">2.4%</dd>
+								<dd class="mt-1 text-lg font-semibold text-emerald-600 [.dark_&]:text-emerald-300">2.4%</dd>
 							</div>
 							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
 								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Control de tallas</dt>
-								<dd class="mt-1 text-lg font-semibold text-cyan-600 [.dark_&]:text-cyan-300">97.8%</dd>
+								<dd class="mt-1 text-lg font-semibold text-emerald-600 [.dark_&]:text-emerald-300">97.8%</dd>
 							</div>
 							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
 								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Reseñas 5★</dt>
-								<dd class="mt-1 text-lg font-semibold text-rose-600 [.dark_&]:text-rose-300">89%</dd>
+								<dd class="mt-1 text-lg font-semibold text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">89%</dd>
 							</div>
 							<div class="rounded-lg border border-zinc-300 bg-zinc-50/90 p-3 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
 								<dt class="text-zinc-500 [.dark_&]:text-zinc-400">Pedidos sin incidencia</dt>
-								<dd class="mt-1 text-lg font-semibold text-lime-600 [.dark_&]:text-lime-300">96.2%</dd>
+								<dd class="mt-1 text-lg font-semibold text-emerald-600 [.dark_&]:text-emerald-300">96.2%</dd>
 							</div>
 						</dl>
 					</article>
@@ -153,15 +166,15 @@
 						<ul class="mt-4 space-y-3 text-sm">
 							<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
 								<span>Hoodie Oni Street</span>
-								<span class="font-semibold text-rose-600 [.dark_&]:text-rose-300">+22%</span>
+								<span class="font-semibold text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">+22%</span>
 							</li>
 							<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
 								<span>Camiseta Yokai Core</span>
-								<span class="font-semibold text-cyan-600 [.dark_&]:text-cyan-300">+16%</span>
+								<span class="font-semibold text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300">+16%</span>
 							</li>
 							<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80">
 								<span>Chaqueta Neo Shibuya</span>
-								<span class="font-semibold text-amber-600 [.dark_&]:text-amber-300">+9%</span>
+								<span class="font-semibold text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">+9%</span>
 							</li>
 						</ul>
 					</article>
@@ -180,7 +193,7 @@
 						<form class="grid grid-cols-1 gap-2 sm:grid-cols-3" aria-label="Filtros de productos">
 							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
 								Categoría
-								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-amber-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-amber-300">
+								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
 									<option>Todas</option>
 									<option>Hoodies</option>
 									<option>Camisetas</option>
@@ -190,7 +203,7 @@
 
 							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
 								Plataforma
-								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-amber-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-amber-300">
+								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
 									<option>Todas</option>
 									<option>Instagram</option>
 									<option>TikTok</option>
@@ -200,7 +213,7 @@
 
 							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
 								Estado de stock
-								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-amber-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-amber-300">
+								<select class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
 									<option>Todos</option>
 									<option>Alto</option>
 									<option>Medio</option>
@@ -231,7 +244,7 @@
 									<td class="px-3 py-3">Hoodie</td>
 									<td class="px-3 py-3">Instagram</td>
 									<td class="px-3 py-3">1,240</td>
-									<td class="px-3 py-3 text-lime-700 [.dark_&]:text-lime-300">Alto</td>
+									<td class="px-3 py-3 text-emerald-700 [.dark_&]:text-emerald-300">Alto</td>
 									<td class="px-3 py-3">95%</td>
 								</tr>
 								<tr>
@@ -239,7 +252,7 @@
 									<td class="px-3 py-3">Camiseta</td>
 									<td class="px-3 py-3">TikTok</td>
 									<td class="px-3 py-3">980</td>
-									<td class="px-3 py-3 text-amber-600 [.dark_&]:text-amber-300">Medio</td>
+									<td class="px-3 py-3 text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">Medio</td>
 									<td class="px-3 py-3">92%</td>
 								</tr>
 								<tr>
@@ -247,7 +260,7 @@
 									<td class="px-3 py-3">Chaqueta</td>
 									<td class="px-3 py-3">Web</td>
 									<td class="px-3 py-3">640</td>
-									<td class="px-3 py-3 text-rose-600 [.dark_&]:text-rose-300">Bajo</td>
+									<td class="px-3 py-3 text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">Bajo</td>
 									<td class="px-3 py-3">90%</td>
 								</tr>
 							</tbody>
@@ -260,7 +273,91 @@
 		<script>
 			const themeToggle = document.getElementById("theme-toggle");
 			const themeLabel = document.getElementById("theme-label");
+			const presetSelect = document.getElementById("preset-select");
 			const html = document.documentElement;
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			function easeOutCubic(t) {
+				return 1 - Math.pow(1 - t, 3);
+			}
+
+			function formatMetric(value, format) {
+				if (format === "currency-0") return `$${Math.round(value).toLocaleString("en-US")}`;
+				if (format === "currency-2") return `$${value.toFixed(2)}`;
+				if (format === "percent-1") return `${value.toFixed(1)}%`;
+				if (format === "percent-0") return `${Math.round(value)}%`;
+				if (format === "signed-percent-1") return `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`;
+				return `${Math.round(value)}`;
+			}
+
+			function animateCounter(element, target, format) {
+				if (reduceMotion) {
+					element.textContent = formatMetric(target, format);
+					return;
+				}
+
+				const magnitude = Math.min(Math.abs(target), 50000);
+				const duration = 850 + magnitude * 0.02;
+				const start = performance.now();
+
+				function tick(now) {
+					const progress = Math.min((now - start) / duration, 1);
+					const eased = easeOutCubic(progress);
+					element.textContent = formatMetric(target * eased, format);
+					if (progress < 1) requestAnimationFrame(tick);
+				}
+
+				requestAnimationFrame(tick);
+			}
+
+			function animateProgressBar(bar, target) {
+				const safeTarget = Math.max(0, Math.min(100, target));
+				if (reduceMotion) {
+					bar.style.width = `${safeTarget}%`;
+					return;
+				}
+
+				const duration = 700 + safeTarget * 14;
+				const start = performance.now();
+
+				function tick(now) {
+					const progress = Math.min((now - start) / duration, 1);
+					const eased = easeOutCubic(progress);
+					bar.style.width = `${(safeTarget * eased).toFixed(2)}%`;
+					bar.style.filter = `saturate(${1 + safeTarget / 140})`;
+					if (progress < 1) requestAnimationFrame(tick);
+				}
+
+				requestAnimationFrame(tick);
+			}
+
+			function animateKpiCards() {
+				document.querySelectorAll("[data-kpi-card]").forEach((card) => {
+					const intensity = Number(card.dataset.intensity || "0");
+					const normalized = Math.max(0, Math.min(1, intensity / 50000));
+					if (reduceMotion) return;
+
+					card.classList.add("animate-pulse");
+					card.style.animationDuration = `${(2400 - normalized * 1200).toFixed(0)}ms`;
+					card.style.animationIterationCount = "2";
+				});
+			}
+
+			function runDataAnimations() {
+				document.querySelectorAll("[data-counter]").forEach((element) => {
+					const target = Number(element.dataset.target || "0");
+					const format = element.dataset.format || "number";
+					animateCounter(element, target, format);
+				});
+
+				document.querySelectorAll("[data-progress]").forEach((bar) => {
+					const target = Number(bar.dataset.progress || "0");
+					bar.style.width = "0%";
+					animateProgressBar(bar, target);
+				});
+
+				animateKpiCards();
+			}
 
 			function syncThemeUI() {
 				const isDark = html.classList.contains("dark");
@@ -272,9 +369,26 @@
 				html.classList.toggle("dark");
 				localStorage.setItem("yokai-theme", html.classList.contains("dark") ? "dark" : "light");
 				syncThemeUI();
+				runDataAnimations();
+			});
+
+			function syncPresetUI() {
+				const isNeon = html.classList.contains("preset-neon");
+				if (presetSelect) presetSelect.value = isNeon ? "neon" : "urban-purple";
+			}
+
+			presetSelect?.addEventListener("change", (event) => {
+				const selectedPreset = event.target.value;
+				const neonEnabled = selectedPreset === "neon";
+				html.classList.toggle("preset-neon", neonEnabled);
+				localStorage.setItem("yokai-preset", neonEnabled ? "neon" : "urban-purple");
+				syncPresetUI();
+				runDataAnimations();
 			});
 
 			syncThemeUI();
+			syncPresetUI();
+			runDataAnimations();
 		</script>
 	</body>
 </html>
