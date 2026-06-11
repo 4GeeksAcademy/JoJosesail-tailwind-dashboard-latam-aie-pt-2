@@ -12,6 +12,8 @@
 			(function () {
 				const savedTheme = localStorage.getItem("yokai-theme");
 				const savedPreset = localStorage.getItem("yokai-preset");
+				const savedView = localStorage.getItem("yokai-view");
+				const autoView = window.innerWidth < 768 ? "mobile" : window.innerWidth < 1200 ? "tablet" : "desktop";
 				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 				if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
 					document.documentElement.classList.add("dark");
@@ -19,6 +21,7 @@
 				if (savedPreset === "neon") {
 					document.documentElement.classList.add("preset-neon");
 				}
+				document.documentElement.classList.add(`view-${savedView || autoView}`);
 			})();
 		</script>
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -38,13 +41,14 @@
 		</a>
 
 		<header class="border-b border-zinc-300/80 bg-zinc-50/80 backdrop-blur-xl [.dark_&]:border-zinc-700/60 [.dark_&]:bg-zinc-950/70">
-			<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+			<div class="mx-auto flex w-full max-w-full flex-col gap-3 px-4 py-4 [.view-mobile_&]:max-w-[430px] [.view-tablet_&]:max-w-[900px] [.view-desktop_&]:max-w-7xl sm:px-6 lg:px-8">
+				<div class="flex items-start justify-between gap-3">
 				<div>
 					<p class="text-xs font-semibold uppercase tracking-[0.30em] text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-500 [.preset-neon.dark_&]:text-fuchsia-300">yokaishxp</p>
-					<h1 class="mt-1 text-xl font-bold sm:text-2xl">Dashboard Comercial y Operacional</h1>
-					<p class="mt-1 text-sm text-zinc-600 [.dark_&]:text-zinc-300">Caracas, Venezuela · Moda anime japonesa urbana</p>
+					<h1 class="mt-1 text-xl font-bold [.view-tablet_&]:text-2xl">Dashboard Comercial y Operacional</h1>
+					<p class="mt-1 text-sm text-zinc-600 [.dark_&]:text-zinc-300">Caracas, Venezuela · Moda anime japonesa urbana · Enfoque mobile-first</p>
 				</div>
-				<div class="flex items-center gap-2">
+				<div class="flex flex-wrap items-center justify-end gap-2">
 					<label class="hidden text-xs font-semibold uppercase tracking-wide text-zinc-600 md:block [.dark_&]:text-zinc-300" for="preset-select">Preset</label>
 					<select
 						id="preset-select"
@@ -71,14 +75,24 @@
 						<span id="theme-label">Modo noche</span>
 					</button>
 				</div>
+				</div>
+				<div class="flex items-center justify-between gap-2 rounded-lg border border-zinc-300 bg-white/70 p-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-900/60">
+					<p class="text-[11px] font-semibold uppercase tracking-wide text-zinc-600 [.dark_&]:text-zinc-300">Vista</p>
+					<div class="inline-flex rounded-md border border-zinc-300 bg-white p-1 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-900">
+						<button data-view-btn data-view="auto" type="button" class="rounded px-2 py-1 text-xs font-semibold text-zinc-700 transition [.dark_&]:text-zinc-200">Auto</button>
+						<button data-view-btn data-view="mobile" type="button" class="rounded px-2 py-1 text-xs font-semibold text-zinc-700 transition [.dark_&]:text-zinc-200">Movil</button>
+						<button data-view-btn data-view="tablet" type="button" class="rounded px-2 py-1 text-xs font-semibold text-zinc-700 transition [.dark_&]:text-zinc-200">Tablet</button>
+						<button data-view-btn data-view="desktop" type="button" class="rounded px-2 py-1 text-xs font-semibold text-zinc-700 transition [.dark_&]:text-zinc-200">PC</button>
+					</div>
+				</div>
 			</div>
 		</header>
 
-		<main id="contenido" class="mx-auto w-full max-w-7xl space-y-8 px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+		<main id="contenido" class="mx-auto w-full max-w-full space-y-8 px-4 py-6 [.view-mobile_&]:max-w-[430px] [.view-tablet_&]:max-w-[900px] [.view-desktop_&]:max-w-7xl sm:px-6 lg:px-8 lg:py-10">
 			<section aria-labelledby="kpis-titulo" class="space-y-4">
-				<div class="flex items-end justify-between gap-4">
+				<div class="flex flex-col items-start gap-3 [.view-tablet_&]:flex-row [.view-tablet_&]:items-end [.view-tablet_&]:justify-between">
 					<div>
-						<h2 id="kpis-titulo" class="text-lg font-semibold sm:text-xl">KPIs Comerciales Clave</h2>
+						<h2 id="kpis-titulo" class="text-lg font-semibold [.view-tablet_&]:text-xl">KPIs Comerciales Clave</h2>
 						<p class="text-sm text-zinc-600 [.dark_&]:text-zinc-300">Indicadores de ingresos, satisfacción y coste por resultado.</p>
 					</div>
 					<span class="rounded-full border border-emerald-500/40 bg-emerald-100/70 px-3 py-1 text-xs font-medium text-emerald-700 [.dark_&]:border-emerald-300/35 [.dark_&]:bg-emerald-300/10 [.dark_&]:text-emerald-100 [.preset-neon_&]:border-green-500/45 [.preset-neon_&]:bg-green-100/75 [.preset-neon_&]:text-green-700 [.preset-neon.dark_&]:border-green-300/40 [.preset-neon.dark_&]:bg-green-300/10 [.preset-neon.dark_&]:text-green-100">
@@ -87,16 +101,16 @@
 					</span>
 				</div>
 
-				<div id="kpi-grid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+				<div id="kpi-grid" class="grid grid-cols-1 gap-4 [.view-tablet_&]:grid-cols-2 [.view-desktop_&]:grid-cols-3"></div>
 			</section>
 
 			<section aria-labelledby="drivers-titulo" class="space-y-4">
 				<div>
-					<h2 id="drivers-titulo" class="text-lg font-semibold sm:text-xl">Drivers de Rendimiento</h2>
+					<h2 id="drivers-titulo" class="text-lg font-semibold [.view-tablet_&]:text-xl">Drivers de Rendimiento</h2>
 					<p class="text-sm text-zinc-600 [.dark_&]:text-zinc-300">Desempeño por plataforma, calidad y rendimiento por producto.</p>
 				</div>
 
-				<div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+				<div class="grid grid-cols-1 gap-4 [.view-desktop_&]:grid-cols-3">
 					<article class="rounded-2xl border border-zinc-300 bg-white/75 p-5 shadow-sm [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
 						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Rendimiento por plataforma</h3>
 						<div id="platform-performance" class="mt-4 space-y-4"></div>
@@ -104,7 +118,7 @@
 
 					<article class="rounded-2xl border border-zinc-300 bg-white/75 p-5 shadow-sm [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
 						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Calidad</h3>
-						<dl id="quality-metrics" class="mt-4 grid grid-cols-2 gap-3 text-sm"></dl>
+						<dl id="quality-metrics" class="mt-4 grid grid-cols-1 gap-3 text-sm [.view-tablet_&]:grid-cols-2"></dl>
 					</article>
 
 					<article class="rounded-2xl border border-zinc-300 bg-white/75 p-5 shadow-sm [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
@@ -116,14 +130,14 @@
 
 			<section aria-labelledby="operacional-titulo" class="space-y-4 pb-8">
 				<div>
-					<h2 id="operacional-titulo" class="text-lg font-semibold sm:text-xl">Detalle Operacional de Productos</h2>
+					<h2 id="operacional-titulo" class="text-lg font-semibold [.view-tablet_&]:text-xl">Detalle Operacional de Productos</h2>
 					<p class="text-sm text-zinc-600 [.dark_&]:text-zinc-300">Tabla de productos con listado y filtros operativos.</p>
 				</div>
 
 				<article class="rounded-2xl border border-zinc-300 bg-white/75 p-4 shadow-sm sm:p-5 [.dark_&]:border-zinc-700/70 [.dark_&]:bg-zinc-900/70">
 					<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 						<h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-700 [.dark_&]:text-zinc-200">Tabla de productos</h3>
-						<form class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Filtros de productos">
+						<form class="grid grid-cols-1 gap-2 [.view-tablet_&]:grid-cols-2 [.view-desktop_&]:grid-cols-4" aria-label="Filtros de productos">
 							<label class="flex flex-col text-xs text-zinc-500 [.dark_&]:text-zinc-400">
 								Categoría
 								<select id="filter-category" class="mt-1 rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-800 focus:border-purple-500 focus:outline-none [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950 [.dark_&]:text-zinc-100 [.dark_&]:focus:border-purple-300 [.preset-neon_&]:focus:border-fuchsia-500 [.preset-neon.dark_&]:focus:border-fuchsia-300">
@@ -142,6 +156,7 @@
 									<option>Todas</option>
 									<option>Instagram</option>
 									<option>TikTok</option>
+									<option>Facebook</option>
 									<option>Web</option>
 								</select>
 							</label>
@@ -179,6 +194,7 @@
 									<th scope="col" class="px-3 py-3">Categoría</th>
 									<th scope="col" class="px-3 py-3">Plataforma Top</th>
 									<th scope="col" class="px-3 py-3">Ventas</th>
+									<th scope="col" class="px-3 py-3">Comisión (15%)</th>
 									<th scope="col" class="px-3 py-3">Stock (u)</th>
 									<th scope="col" class="px-3 py-3">Stock</th>
 									<th scope="col" class="px-3 py-3">Calidad</th>
@@ -205,14 +221,25 @@
 			const filterPlatform = document.getElementById("filter-platform");
 			const filterStock = document.getElementById("filter-stock");
 			const filterSales = document.getElementById("filter-sales");
+			const viewButtons = document.querySelectorAll("[data-view-btn]");
 			const html = document.documentElement;
 			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			const COMMISSION_RATE = 0.15;
+			let manualViewLocked = Boolean(localStorage.getItem("yokai-view"));
 
 			const stockToneMap = {
 				Alto: "text-emerald-700 [.dark_&]:text-emerald-300",
 				Medio: "text-purple-600 [.dark_&]:text-purple-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
 				Bajo: "text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300",
 			};
+
+			function formatCurrency(amount) {
+				return `$${Math.round(amount).toLocaleString("en-US")}`;
+			}
+
+			function commissionFromSales(sales) {
+				return sales * COMMISSION_RATE;
+			}
 
 			const dashboardData = {
 				kpis: [
@@ -257,6 +284,18 @@
 						textClass: "text-emerald-600 [.dark_&]:text-emerald-300 [.preset-neon_&]:text-green-600 [.preset-neon.dark_&]:text-green-300",
 						barClass: "from-emerald-300 to-emerald-400 [.preset-neon_&]:from-green-300 [.preset-neon_&]:to-green-500",
 					},
+					{
+						name: "Facebook",
+						value: 62,
+						textClass: "text-sky-600 [.dark_&]:text-sky-300 [.preset-neon_&]:text-cyan-500 [.preset-neon.dark_&]:text-cyan-300",
+						barClass: "from-sky-300 to-blue-400 [.preset-neon_&]:from-cyan-300 [.preset-neon_&]:to-sky-500",
+					},
+					{
+						name: "Web",
+						value: 57,
+						textClass: "text-zinc-700 [.dark_&]:text-zinc-200 [.preset-neon_&]:text-zinc-700 [.preset-neon.dark_&]:text-zinc-100",
+						barClass: "from-zinc-300 to-zinc-500 [.dark_&]:from-zinc-500 [.dark_&]:to-zinc-300 [.preset-neon_&]:from-zinc-300 [.preset-neon_&]:to-zinc-500",
+					},
 				],
 				quality: [
 						{ label: "Tasa de devolución", value: "2.1%", tone: "text-emerald-600 [.dark_&]:text-emerald-300" },
@@ -268,7 +307,7 @@
 						{ name: "Hoodie Oni Street", category: "Hoodies", platform: "Instagram", sales: 1240, stockUnits: 220, stock: "Alto", quality: "95%", performance: 22, reviews5: 460 },
 						{ name: "Camiseta Yokai Core", category: "Camisetas", platform: "TikTok", sales: 980, stockUnits: 140, stock: "Medio", quality: "92%", performance: 16, reviews5: 390 },
 						{ name: "Chaqueta Neo Shibuya", category: "Chaquetas", platform: "Web", sales: 640, stockUnits: 58, stock: "Bajo", quality: "90%", performance: 9, reviews5: 240 },
-						{ name: "Pantalon Kuro Drift", category: "Pantalones", platform: "Instagram", sales: 910, stockUnits: 125, stock: "Medio", quality: "93%", performance: 14, reviews5: 320 },
+						{ name: "Pantalon Kuro Drift", category: "Pantalones", platform: "Facebook", sales: 910, stockUnits: 125, stock: "Medio", quality: "93%", performance: 14, reviews5: 320 },
 						{ name: "Gorra Kitsune Tag", category: "Accesorios", platform: "TikTok", sales: 870, stockUnits: 260, stock: "Alto", quality: "96%", performance: 18, reviews5: 510 },
 						{ name: "Hoodie Shibuya Night", category: "Hoodies", platform: "Instagram", sales: 1160, stockUnits: 198, stock: "Alto", quality: "94%", performance: 20, reviews5: 440 },
 						{ name: "Camiseta Ronin Pixel", category: "Camisetas", platform: "TikTok", sales: 760, stockUnits: 112, stock: "Medio", quality: "91%", performance: 12, reviews5: 280 },
@@ -276,13 +315,13 @@
 						{ name: "Pantalon Asfalto Neo", category: "Pantalones", platform: "Web", sales: 540, stockUnits: 96, stock: "Medio", quality: "90%", performance: 7, reviews5: 185 },
 						{ name: "Mochila Oni Patch", category: "Accesorios", platform: "Instagram", sales: 690, stockUnits: 175, stock: "Alto", quality: "95%", performance: 11, reviews5: 305 },
 						{ name: "Hoodie Glitch Yokai", category: "Hoodies", platform: "TikTok", sales: 1080, stockUnits: 188, stock: "Alto", quality: "94%", performance: 19, reviews5: 420 },
-						{ name: "Camiseta Tokyo Alley", category: "Camisetas", platform: "Instagram", sales: 840, stockUnits: 133, stock: "Medio", quality: "92%", performance: 13, reviews5: 340 },
-						{ name: "Chaqueta Neon Kumo", category: "Chaquetas", platform: "TikTok", sales: 730, stockUnits: 77, stock: "Medio", quality: "91%", performance: 10, reviews5: 260 },
+						{ name: "Camiseta Tokyo Alley", category: "Camisetas", platform: "Facebook", sales: 840, stockUnits: 133, stock: "Medio", quality: "92%", performance: 13, reviews5: 340 },
+						{ name: "Chaqueta Neon Kumo", category: "Chaquetas", platform: "Web", sales: 730, stockUnits: 77, stock: "Medio", quality: "91%", performance: 10, reviews5: 260 },
 						{ name: "Pantalon Harajuku Flex", category: "Pantalones", platform: "Instagram", sales: 660, stockUnits: 84, stock: "Medio", quality: "90%", performance: 9, reviews5: 232 },
 						{ name: "Cadena Spirit Mode", category: "Accesorios", platform: "Web", sales: 470, stockUnits: 65, stock: "Bajo", quality: "88%", performance: 6, reviews5: 168 },
 						{ name: "Hoodie Kawaii Dark", category: "Hoodies", platform: "Web", sales: 820, stockUnits: 144, stock: "Medio", quality: "93%", performance: 12, reviews5: 300 },
 						{ name: "Camiseta Metro Fox", category: "Camisetas", platform: "TikTok", sales: 715, stockUnits: 101, stock: "Medio", quality: "91%", performance: 10, reviews5: 250 },
-						{ name: "Chaqueta Phantom Neko", category: "Chaquetas", platform: "Instagram", sales: 780, stockUnits: 92, stock: "Medio", quality: "92%", performance: 11, reviews5: 274 },
+						{ name: "Chaqueta Phantom Neko", category: "Chaquetas", platform: "Facebook", sales: 780, stockUnits: 92, stock: "Medio", quality: "92%", performance: 11, reviews5: 274 },
 						{ name: "Pantalon Zero Gravity", category: "Pantalones", platform: "TikTok", sales: 605, stockUnits: 72, stock: "Bajo", quality: "89%", performance: 8, reviews5: 201 },
 						{ name: "Riñonera Catbyte", category: "Accesorios", platform: "Instagram", sales: 955, stockUnits: 210, stock: "Alto", quality: "96%", performance: 17, reviews5: 470 },
 				],
@@ -340,7 +379,7 @@
 					productPerformance.innerHTML = top5
 						.map(
 							(item) =>
-								`<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80"><span>${item.name}</span><span class="font-semibold text-right text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">+${item.performance}% · ${item.sales.toLocaleString("en-US")}</span></li>`,
+								`<li class="flex items-center justify-between rounded-lg border border-zinc-300 bg-zinc-50/90 px-3 py-2 [.dark_&]:border-zinc-700 [.dark_&]:bg-zinc-950/80"><span>${item.name}</span><span class="font-semibold text-right text-violet-600 [.dark_&]:text-violet-300 [.preset-neon_&]:text-fuchsia-600 [.preset-neon.dark_&]:text-fuchsia-300">+${item.performance}% · ${item.sales.toLocaleString("en-US")} · Com ${formatCurrency(commissionFromSales(item.sales))}</span></li>`,
 						)
 						.join("");
 				}
@@ -349,7 +388,7 @@
 					productsTableBody.innerHTML = filteredProducts
 						.map(
 							(item) =>
-								`<tr><th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">${item.name}</th><td class="px-3 py-3">${item.category}</td><td class="px-3 py-3">${item.platform}</td><td class="px-3 py-3">${item.sales.toLocaleString("en-US")}</td><td class="px-3 py-3">${item.stockUnits}</td><td class="px-3 py-3 ${stockToneMap[item.stock] || ""}">${item.stock}</td><td class="px-3 py-3">${item.quality}</td><td class="px-3 py-3"><div class="flex items-center gap-2">${renderStars(item.reviews5)}<span class="text-xs text-zinc-500 [.dark_&]:text-zinc-400">${item.reviews5}</span></div></td></tr>`,
+								`<tr><th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">${item.name}</th><td class="px-3 py-3">${item.category}</td><td class="px-3 py-3">${item.platform}</td><td class="px-3 py-3">${item.sales.toLocaleString("en-US")}</td><td class="px-3 py-3 text-emerald-700 [.dark_&]:text-emerald-300">${formatCurrency(commissionFromSales(item.sales))}</td><td class="px-3 py-3">${item.stockUnits}</td><td class="px-3 py-3 ${stockToneMap[item.stock] || ""}">${item.stock}</td><td class="px-3 py-3">${item.quality}</td><td class="px-3 py-3"><div class="flex items-center gap-2">${renderStars(item.reviews5)}<span class="text-xs text-zinc-500 [.dark_&]:text-zinc-400">${item.reviews5}</span></div></td></tr>`,
 						)
 						.join("");
 				}
@@ -490,6 +529,43 @@
 				themeToggle.setAttribute("aria-label", isDark ? "Activar modo dia" : "Activar modo noche");
 			}
 
+			function getAutoViewByWidth() {
+				if (window.innerWidth < 768) return "mobile";
+				if (window.innerWidth < 1200) return "tablet";
+				return "desktop";
+			}
+
+			function setDashboardView(view) {
+				if (view === "auto") {
+					manualViewLocked = false;
+					localStorage.removeItem("yokai-view");
+					html.classList.remove("view-mobile", "view-tablet", "view-desktop");
+					html.classList.add(`view-${getAutoViewByWidth()}`);
+					syncViewUI();
+					runDataAnimations();
+					return;
+				}
+
+				manualViewLocked = true;
+				html.classList.remove("view-mobile", "view-tablet", "view-desktop");
+				html.classList.add(`view-${view}`);
+				localStorage.setItem("yokai-view", view);
+				syncViewUI();
+				runDataAnimations();
+			}
+
+			function syncViewUI() {
+				viewButtons.forEach((button) => {
+					const view = button.dataset.view;
+					const isActive = view === "auto" ? !manualViewLocked : manualViewLocked && html.classList.contains(`view-${view}`);
+					button.setAttribute("aria-pressed", isActive ? "true" : "false");
+					button.classList.toggle("bg-purple-600", isActive);
+					button.classList.toggle("text-white", isActive);
+					button.classList.toggle("[.preset-neon_&]:bg-fuchsia-600", isActive);
+					button.classList.toggle("[.preset-neon_&]:text-white", isActive);
+				});
+			}
+
 			themeToggle?.addEventListener("click", () => {
 				html.classList.toggle("dark");
 				localStorage.setItem("yokai-theme", html.classList.contains("dark") ? "dark" : "light");
@@ -515,8 +591,20 @@
 				control?.addEventListener("change", applyProductFilters);
 			});
 
+			viewButtons.forEach((button) => {
+				button.addEventListener("click", () => setDashboardView(button.dataset.view || "mobile"));
+			});
+
+			window.addEventListener("resize", () => {
+				if (manualViewLocked) return;
+				html.classList.remove("view-mobile", "view-tablet", "view-desktop");
+				html.classList.add(`view-${getAutoViewByWidth()}`);
+				syncViewUI();
+			});
+
 			syncThemeUI();
 			syncPresetUI();
+			syncViewUI();
 			renderDashboardComponents();
 			runDataAnimations();
 		</script>
