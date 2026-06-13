@@ -217,7 +217,7 @@
 									<th scope="col" class="px-3 py-3">Alcance</th>
 									<th scope="col" class="px-3 py-3">Conversiones</th>
 									<th scope="col" class="px-3 py-3">Costo ads</th>
-									<th scope="col" class="px-3 py-3">ROAS</th>
+									<th scope="col" class="px-3 py-3">ROI (%)</th>
 									<th scope="col" class="px-3 py-3">Engagement</th>
 									<th scope="col" class="px-3 py-3">Stock (u)</th>
 									<th scope="col" class="px-3 py-3">Stock</th>
@@ -250,6 +250,8 @@
 			const viewButtons = document.querySelectorAll("[data-view-btn]");
 			const html = document.documentElement;
 			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			const LOCALE = "es-VE";
+			const CURRENCY = "USD";
 			const COMMISSION_RATE = 0.15;
 			let manualViewLocked = Boolean(localStorage.getItem("yokai-view"));
 
@@ -286,29 +288,31 @@
 				Accesorios: 25,
 			};
 
-			const platformReachFactorMap = {
-				Instagram: 1.15,
-				TikTok: 1.35,
-				Facebook: 1.5,
-				Web: 0.95,
+			const categoryConversionLiftMap = {
+				Hoodies: 1.08,
+				Camisetas: 1.12,
+				Chaquetas: 0.92,
+				Pantalones: 0.95,
+				Accesorios: 1.18,
 			};
 
-			const platformCostRateMap = {
-				Instagram: 0.28,
-				TikTok: 0.24,
-				Facebook: 0.33,
-				Web: 0.18,
+			const platformFunnelRules = {
+				Instagram: { ctr: 0.026, cvr: 0.042, cpc: 0.31, engagementBase: 0.071 },
+				TikTok: { ctr: 0.033, cvr: 0.038, cpc: 0.24, engagementBase: 0.089 },
+				Facebook: { ctr: 0.019, cvr: 0.035, cpc: 0.29, engagementBase: 0.056 },
+				Web: { ctr: 0.041, cvr: 0.051, cpc: 0.16, engagementBase: 0.044 },
 			};
 
-			const platformEngagementFactorMap = {
-				Instagram: 0.085,
-				TikTok: 0.102,
-				Facebook: 0.067,
-				Web: 0.049,
-			};
+			function formatNumber(value, maximumFractionDigits = 0) {
+				return new Intl.NumberFormat(LOCALE, { maximumFractionDigits }).format(value);
+			}
 
-			function formatCurrency(amount) {
-				return `$${Math.round(amount).toLocaleString("en-US")}`;
+			function formatCurrency(amount, maximumFractionDigits = 0) {
+				return new Intl.NumberFormat(LOCALE, {
+					style: "currency",
+					currency: CURRENCY,
+					maximumFractionDigits,
+				}).format(amount);
 			}
 
 			function commissionFromSales(sales) {
@@ -403,23 +407,27 @@
 
 			function enrichProductMetrics(product) {
 				const avgTicket = categoryTicketMap[product.category] || 35;
-				const reachFactor = platformReachFactorMap[product.platform] || 1.1;
-				const adCostRate = platformCostRateMap[product.platform] || 0.25;
-				const engagementFactor = platformEngagementFactorMap[product.platform] || 0.07;
+				const funnel = platformFunnelRules[product.platform] || platformFunnelRules.Instagram;
+				const conversionLift = categoryConversionLiftMap[product.category] || 1;
+				const adjustedCvr = funnel.cvr * conversionLift;
 
-				const reach = Math.max(1, Math.round(product.sales * reachFactor));
 				const conversions = Math.max(1, Math.round(product.sales / avgTicket));
-				const adCost = Number((product.sales * adCostRate).toFixed(2));
+				const clicks = Math.max(1, Math.round(conversions / adjustedCvr));
+				const reach = Math.max(1, Math.round(clicks / funnel.ctr));
+				const adCost = Number((clicks * funnel.cpc).toFixed(2));
 				const roas = adCost > 0 ? product.sales / adCost : 0;
-				const interactions = Math.max(1, Math.round(reach * engagementFactor + product.reviews5 * 1.6));
+				const roiPercent = (roas - 1) * 100;
+				const interactions = Math.max(1, Math.round(reach * funnel.engagementBase + product.reviews5 * 1.25));
 				const engagementRate = (interactions / reach) * 100;
 
 				return {
 					...product,
+					clicks,
 					reach,
 					conversions,
 					adCost,
 					roas,
+					roiPercent,
 					interactions,
 					engagementRate,
 				};
@@ -468,12 +476,14 @@
 						...item,
 						conversionRate: item.reach > 0 ? (item.conversions / item.reach) * 100 : 0,
 						roas: item.adCost > 0 ? item.revenue / item.adCost : 0,
+						roiPercent: item.adCost > 0 ? ((item.revenue - item.adCost) / item.adCost) * 100 : 0,
 						engagementRate: item.reach > 0 ? (item.interactions / item.reach) * 100 : 0,
 					}))
 					.sort((a, b) => b.revenue - a.revenue);
 
 				const overallConversionRate = totals.reach > 0 ? (totals.conversions / totals.reach) * 100 : 0;
 				const overallRoas = totals.adCost > 0 ? totals.revenue / totals.adCost : 0;
+				const overallRoiPercent = totals.adCost > 0 ? ((totals.revenue - totals.adCost) / totals.adCost) * 100 : 0;
 				const overallEngagementRate = totals.reach > 0 ? (totals.interactions / totals.reach) * 100 : 0;
 
 				return {
@@ -482,6 +492,7 @@
 					totals,
 					overallConversionRate,
 					overallRoas,
+					overallRoiPercent,
 					overallEngagementRate,
 					topIncomeProducts: [...safeProducts].sort((a, b) => b.sales - a.sales).slice(0, 5),
 					topEngagementProducts: [...safeProducts].sort((a, b) => b.engagementRate - a.engagementRate).slice(0, 5),
@@ -506,7 +517,7 @@
 
 			function renderDashboardComponents() {
 				const analytics = buildAnalytics(filteredProducts);
-				const maxPlatformRoas = Math.max(...analytics.platforms.map((item) => item.roas), 0);
+				const maxPlatformRoiPercent = Math.max(...analytics.platforms.map((item) => item.roiPercent), 0);
 
 				if (kpiGrid) {
 					const kpis = [
@@ -538,10 +549,10 @@
 								"to-purple-50/90 shadow-[0_16px_40px_-22px_rgba(147,51,234,0.45)] [.dark_&]:shadow-[0_16px_40px_-20px_rgba(216,180,254,0.9)] [.preset-neon_&]:to-fuchsia-50/90 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(217,70,239,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(232,121,249,0.9)]",
 						},
 						{
-							title: "ROAS promedio",
-							target: analytics.overallRoas,
-							format: "ratio-2",
-							subtitle: "Que plataforma te devuelve mas por cada dolar invertido",
+							title: "ROI promedio",
+							target: analytics.overallRoiPercent,
+							format: "signed-percent-1",
+							subtitle: "Retorno total respecto al costo publicitario",
 							valueClass: "text-sky-600 [.dark_&]:text-sky-300 [.preset-neon_&]:text-cyan-500 [.preset-neon.dark_&]:text-cyan-300",
 							cardClass:
 								"to-sky-50/80 shadow-[0_16px_40px_-22px_rgba(2,132,199,0.45)] [.dark_&]:shadow-[0_16px_40px_-20px_rgba(56,189,248,0.8)] [.preset-neon_&]:to-cyan-50/85 [.preset-neon_&]:shadow-[0_16px_40px_-20px_rgba(34,211,238,0.55)] [.preset-neon.dark_&]:shadow-[0_16px_40px_-20px_rgba(103,232,249,0.85)]",
@@ -561,7 +572,7 @@
 						.map(
 							(item) => {
 								const visual = platformVisualMap[item.platform] || platformVisualMap.Web;
-								return `<div><div class="mb-1 flex justify-between text-sm"><span>${item.platform}</span><span data-counter data-format="percent-2" data-target="${item.conversionRate}" class="${visual.textClass}">${formatMetric(item.conversionRate, "percent-2")}</span></div><div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800"><div data-progress="${item.conversionRate}" class="h-2 w-0 rounded-full bg-gradient-to-r ${visual.barClass} transition-all"></div></div><p class="mt-1 text-xs text-zinc-500 [.dark_&]:text-zinc-400">${item.conversions.toLocaleString("en-US")} conversiones / ${item.reach.toLocaleString("en-US")} de alcance</p></div>`;
+								return `<div><div class="mb-1 flex justify-between text-sm"><span>${item.platform}</span><span data-counter data-format="percent-2" data-target="${item.conversionRate}" class="${visual.textClass}">${formatMetric(item.conversionRate, "percent-2")}</span></div><div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800"><div data-progress="${item.conversionRate}" class="h-2 w-0 rounded-full bg-gradient-to-r ${visual.barClass} transition-all"></div></div><p class="mt-1 text-xs text-zinc-500 [.dark_&]:text-zinc-400">${formatNumber(item.conversions)} conversiones / ${formatNumber(item.reach)} de alcance</p></div>`;
 							},
 						)
 						.join("");
@@ -572,8 +583,8 @@
 						.map(
 							(item) => {
 								const visual = platformVisualMap[item.platform] || platformVisualMap.Web;
-								const barValue = maxPlatformRoas > 0 ? (item.roas / maxPlatformRoas) * 100 : 0;
-								return `<div><div class="mb-1 flex justify-between text-sm"><span>${item.platform}</span><span data-counter data-format="ratio-2" data-target="${item.roas}" class="${visual.textClass}">${formatMetric(item.roas, "ratio-2")}</span></div><div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800"><div data-progress="${barValue}" class="h-2 w-0 rounded-full bg-gradient-to-r ${visual.barClass} transition-all"></div></div><p class="mt-1 text-xs text-zinc-500 [.dark_&]:text-zinc-400">Ingresos ${formatCurrency(item.revenue)} / Costes ${formatCurrency(item.adCost)}</p></div>`;
+								const barValue = maxPlatformRoiPercent > 0 ? (item.roiPercent / maxPlatformRoiPercent) * 100 : 0;
+								return `<div><div class="mb-1 flex justify-between text-sm"><span>${item.platform}</span><span data-counter data-format="signed-percent-1" data-target="${item.roiPercent}" class="${visual.textClass}">${formatMetric(item.roiPercent, "signed-percent-1")}</span></div><div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800"><div data-progress="${barValue}" class="h-2 w-0 rounded-full bg-gradient-to-r ${visual.barClass} transition-all"></div></div><p class="mt-1 text-xs text-zinc-500 [.dark_&]:text-zinc-400">Ingresos ${formatCurrency(item.revenue)} / Costes ${formatCurrency(item.adCost)}</p></div>`;
 							},
 						)
 						.join("");
@@ -592,7 +603,7 @@
 					engagementPlatform.innerHTML = analytics.platforms
 						.map((item) => {
 							const visual = platformVisualMap[item.platform] || platformVisualMap.Web;
-							return `<div><div class="mb-1 flex justify-between text-sm"><span>${item.platform}</span><span data-counter data-format="percent-2" data-target="${item.engagementRate}" class="${visual.textClass}">${formatMetric(item.engagementRate, "percent-2")}</span></div><div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800"><div data-progress="${Math.min(item.engagementRate, 100)}" class="h-2 w-0 rounded-full bg-gradient-to-r ${visual.barClass} transition-all"></div></div><p class="mt-1 text-xs text-zinc-500 [.dark_&]:text-zinc-400">${item.interactions.toLocaleString("en-US")} interacciones</p></div>`;
+							return `<div><div class="mb-1 flex justify-between text-sm"><span>${item.platform}</span><span data-counter data-format="percent-2" data-target="${item.engagementRate}" class="${visual.textClass}">${formatMetric(item.engagementRate, "percent-2")}</span></div><div class="h-2 rounded-full bg-zinc-200 [.dark_&]:bg-zinc-800"><div data-progress="${Math.min(item.engagementRate, 100)}" class="h-2 w-0 rounded-full bg-gradient-to-r ${visual.barClass} transition-all"></div></div><p class="mt-1 text-xs text-zinc-500 [.dark_&]:text-zinc-400">${formatNumber(item.interactions)} interacciones</p></div>`;
 						})
 						.join("");
 				}
@@ -610,7 +621,7 @@
 					productsTableBody.innerHTML = analytics.products
 						.map(
 							(item) =>
-								`<tr><th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">${item.name}</th><td class="px-3 py-3">${item.category}</td><td class="px-3 py-3">${item.platform}</td><td class="px-3 py-3">${formatCurrency(item.sales)}</td><td class="px-3 py-3 text-emerald-700 [.dark_&]:text-emerald-300">${formatCurrency(commissionFromSales(item.sales))}</td><td class="px-3 py-3">${item.reach.toLocaleString("en-US")}</td><td class="px-3 py-3">${item.conversions.toLocaleString("en-US")}</td><td class="px-3 py-3">${formatCurrency(item.adCost)}</td><td class="px-3 py-3">${item.roas.toFixed(2)}x</td><td class="px-3 py-3">${item.engagementRate.toFixed(2)}%</td><td class="px-3 py-3">${item.stockUnits}</td><td class="px-3 py-3 ${stockToneMap[item.stock] || ""}">${item.stock}</td><td class="px-3 py-3">${item.quality}</td><td class="px-3 py-3"><div class="flex items-center gap-2">${renderStars(item.reviews5)}<span class="text-xs text-zinc-500 [.dark_&]:text-zinc-400">${item.reviews5}</span></div></td></tr>`,
+								`<tr><th scope="row" class="whitespace-nowrap px-3 py-3 font-medium">${item.name}</th><td class="px-3 py-3">${item.category}</td><td class="px-3 py-3">${item.platform}</td><td class="px-3 py-3">${formatCurrency(item.sales)}</td><td class="px-3 py-3 text-emerald-700 [.dark_&]:text-emerald-300">${formatCurrency(commissionFromSales(item.sales))}</td><td class="px-3 py-3">${formatNumber(item.reach)}</td><td class="px-3 py-3">${formatNumber(item.conversions)}</td><td class="px-3 py-3">${formatCurrency(item.adCost)}</td><td class="px-3 py-3">${formatMetric(item.roiPercent, "signed-percent-1")}</td><td class="px-3 py-3">${formatMetric(item.engagementRate, "percent-2")}</td><td class="px-3 py-3">${formatNumber(item.stockUnits)}</td><td class="px-3 py-3 ${stockToneMap[item.stock] || ""}">${item.stock}</td><td class="px-3 py-3">${item.quality}</td><td class="px-3 py-3"><div class="flex items-center gap-2">${renderStars(item.reviews5)}<span class="text-xs text-zinc-500 [.dark_&]:text-zinc-400">${formatNumber(item.reviews5)}</span></div></td></tr>`,
 						)
 						.join("");
 				}
@@ -645,12 +656,11 @@
 			}
 
 			function formatMetric(value, format) {
-				if (format === "currency-0") return `$${Math.round(value).toLocaleString("en-US")}`;
-				if (format === "currency-2") return `$${value.toFixed(2)}`;
+				if (format === "currency-0") return formatCurrency(value, 0);
+				if (format === "currency-2") return formatCurrency(value, 2);
 				if (format === "percent-1") return `${value.toFixed(1)}%`;
 				if (format === "percent-2") return `${value.toFixed(2)}%`;
 				if (format === "percent-0") return `${Math.round(value)}%`;
-				if (format === "ratio-2") return `${value.toFixed(2)}x`;
 				if (format === "signed-percent-1") return `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`;
 				return `${Math.round(value)}`;
 			}
